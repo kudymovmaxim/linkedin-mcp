@@ -1,0 +1,6 @@
+.DS_Store
+.env
+/mcp_server/__pycache__
+/mcp_server/base_model/__pycache__
+/mcp_server/phantombuster/__pycache__
+/test/__pycache__
