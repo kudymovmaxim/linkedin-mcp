@@ -2,6 +2,7 @@
 
 ## What is this?
 
+**Nano LinkedIn MCP server for LLM agents & Cursor**
 A developer tool to automate LinkedIn workflows using agents. You can scrape profiles, companies, inbox, threads, and send messages via LinkedIn, all through a local MCP server. Built for pipeline automation and easy integration with other tools.
 
 ---
@@ -112,7 +113,7 @@ async with MCPServerStdio(
 - Add cache for requests/results
 - Add limits (rate limiting, quotas)
 
-> **Important:** LinkedIn does not like automation. Always respect daily limits to avoid account restrictions:
+> ⚠️ **Important:** LinkedIn does not like automation. Always respect daily limits to avoid account restrictions:
 >
 > **Free LinkedIn:**
 > - 100 messages per day
