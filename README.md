@@ -2,7 +2,7 @@
 
 ## What is this?
 
-**Nano LinkedIn MCP server for LLM agents & Cursor**
+**Nano LinkedIn MCP server for LLM agents & Cursor**  
 A developer tool to automate LinkedIn workflows using agents. You can scrape profiles, companies, inbox, threads, and send messages via LinkedIn, all through a local MCP server. Built for pipeline automation and easy integration with other tools.
 
 ---
