@@ -1,7 +1,10 @@
 import os
 import asyncio
 import argparse
+from dotenv import load_dotenv
 from agents.mcp import MCPServerStdio
+
+load_dotenv()
 
 async def main():
     parser = argparse.ArgumentParser()
@@ -41,14 +44,21 @@ async def main():
             "description": "LinkedIn MCP server: scrap profile,. "
         }
     ) as server:
-        # Получаем список инструментов
+        await server.connect()
+
         tools = await server.list_tools()
-        print("\nList of tools MCP:", tools)
+        print("\nList of tools MCP:")
         for tool in tools:
             print(f"- {tool.name}: {tool.description}")
 
         # result = await server.call_tool("scrap_profile", {"linkedin": "https://www.linkedin.com/in/maxim-kudymov/"})
         # print(f"ping -> {result}")
+
+        result = await server.call_tool(tool_name="scrap_inbox", arguments={
+            "count_to_scrape": 10,
+            "inbox_filter": "unread"
+        })
+        print(f"[scrap_inbox]: {result}")
 
 if __name__ == "__main__":
     asyncio.run(main()) 

@@ -38,7 +38,7 @@ class PhantomAgentCompany(PhantomAgentBase):
         Returns:
             Company object if found, None otherwise
         """
-        result = self.get_raw_data()
+        result = self.get_raw_data().get("resultObject")
         if result:
             for value in result:
                 if query is not None:

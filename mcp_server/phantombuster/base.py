@@ -149,10 +149,7 @@ class PhantomAgentBase:
         }
         response = requests.get(url, headers=headers)
         self.raw_data  = response.json()
-        result_obj = self.raw_data.get("resultObject")
-        if result_obj:
-            return json.loads(result_obj)
-        return None
+        return self.raw_data
 
     def get_data(self, filter_field: Optional[str] = None, filter_value: Optional[str] = None):
         """Get processed data from phantom task. Should be implemented by subclasses.

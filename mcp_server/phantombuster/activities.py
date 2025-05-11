@@ -49,7 +49,7 @@ class PhantomAgentActivities(PhantomAgentBase):
     def get_data(self) -> List[Activity]:
         """Get processed activities from phantom task"""
         
-        result = self.get_raw_data()
+        result = self.get_raw_data().get("resultObject")
         activities = []
         if result:
             for value in result:

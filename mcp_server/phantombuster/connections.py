@@ -36,7 +36,7 @@ class PhantomAgentConnections(PhantomAgentBase):
 
     def get_data(self) -> List[Connection]:
         """Get processed connections from phantom task"""
-        result = self.get_raw_data()
+        result = self.get_raw_data().get("resultObject")
         connections = []
         if result:
             for value in result:

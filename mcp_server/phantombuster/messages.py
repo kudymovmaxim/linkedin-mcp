@@ -32,7 +32,7 @@ class PhantomAgentInbox(PhantomAgentBase):
 
     def get_data(self) -> List[Thread]:
         """Get processed threads from phantom task"""
-        result = self.get_raw_data()
+        result = self.get_raw_data().get("resultObject")
         # result = THREADS_TEST
         threads = []
         if result:
@@ -89,7 +89,7 @@ class PhantomAgentThread(PhantomAgentBase):
 
     def get_data(self) -> List[Message]:
         """Get processed messages from phantom task"""
-        result = self.get_raw_data()
+        result = self.get_raw_data().get("resultObject")
         # result = MESSAGES_TEST
         messages = []
         seen = set()
@@ -109,3 +109,54 @@ class PhantomAgentThread(PhantomAgentBase):
                     )
                     messages.append(message)
         return messages 
+    
+
+    
+class PhantomAgentMessageSender(PhantomAgentBase):
+    def __init__(
+            self, 
+            credentials: PhantomCredentials, 
+            agent_id: Optional[str] = None
+        ):
+        
+        super().__init__(credentials, agent_id)
+        self.script_id = "9227"
+        self.script = "LinkedIn Message Sender.js"
+        self.name = "LinkedIn Message Sender (API)"
+
+
+
+    def run(self, linkedin: str, message: str, message_control: str = "none") -> bool:
+        """
+        message_control:
+           - none
+           - sendOnlyIfLastWasRecipient
+           - dontSendIfLastWasRecipient
+           - sendOnlyIfLastWasRecipientOrNoMessage
+           - sendOnlyIfLastWasMeOrNoMessage
+           - sendOnlyIfNoMessage
+           - sendOnlyIfNoReply
+        """
+        data = {
+            "id": self.agent_id,
+            "argument": {
+                "userAgent": self.credentials.user_agent,
+                "sessionCookie": self.credentials.session_cookie,
+                "spreadsheetUrl": linkedin,
+                "message": str(message),
+                "messageControl": message_control
+            }
+        }
+
+        return self._post(self.lanch_url, data)
+
+
+
+    def get_data(self) -> str:
+        """Return only status string for message sending task"""
+        result = self.raw_data
+        if not result:
+            result = self.get_raw_data()
+        if not result:
+            return {"status": None}
+        return result.get("status")

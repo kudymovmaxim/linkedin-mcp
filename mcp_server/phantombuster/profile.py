@@ -43,7 +43,7 @@ class PhantomAgentProfile(PhantomAgentBase):
         Returns:
             Profile object if data is found and matches filter criteria, None otherwise
         """
-        result = self.get_raw_data()
+        result = self.get_raw_data().get("resultObject")
         if result:
             for value in result:
                 # Apply filtering if specified
@@ -136,7 +136,7 @@ class PhantomAgentSalesNavigatorProfile(PhantomAgentBase):
 
     def get_data(self) -> List[Profile]:
         """Get processed profiles from phantom task"""
-        result = self.get_raw_data()
+        result = self.get_raw_data().get("resultObject")
         profiles = []
         if result:
             for value in result:
