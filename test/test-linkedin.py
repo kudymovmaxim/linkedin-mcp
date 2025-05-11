@@ -18,8 +18,8 @@ credentials = PhantomCredentials(
     user_agent=LINKEDIN_BROWSER_AGENT
 )
 
-linkedin = "https://www.linkedin.com/in/maxim-kudymov/"
-message = "Alrite"
+linkedin = "<linkedin>"
+message = "HI, Max"
 
 sender_agent = PhantomAgentMessageSender(credentials=credentials)
 status, success = sender_agent.run_and_get_data(linkedin, message)

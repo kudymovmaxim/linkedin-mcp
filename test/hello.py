@@ -19,17 +19,6 @@ async def main():
 
     print("Запуск MCP агента...")
     async with MCPServerStdio(
-        # params={
-        #     "command": "python",
-        #     # "args": [os.path.join(os.getcwd(), "mcp_server", "linkedin-server.py")],
-        #     "args": ["-m", "mcp_server.linkedin-server"],
-        #     "env": {
-        #         "PHANTOMBUSTER_API_KEY": phantombuster_api_key or "",
-        #         "LINKEDIN_COOKIE_LI": linkedin_cookie_li or "",
-        #         "LINKEDIN_BROWSER_AGENT": linkedin_browser_agent or ""
-        #     }
-        # }
-
         params={
             "command": "python",
             "args": [
@@ -51,14 +40,14 @@ async def main():
         for tool in tools:
             print(f"- {tool.name}: {tool.description}")
 
-        # result = await server.call_tool("scrap_profile", {"linkedin": "https://www.linkedin.com/in/maxim-kudymov/"})
-        # print(f"ping -> {result}")
+        result = await server.call_tool("scrap_profile", {"linkedin": "https://www.linkedin.com/in/maxim-kudymov/"})
+        print(f"ping -> {result}")
 
-        result = await server.call_tool(tool_name="scrap_inbox", arguments={
-            "count_to_scrape": 10,
-            "inbox_filter": "unread"
-        })
-        print(f"[scrap_inbox]: {result}")
+        # result = await server.call_tool(tool_name="scrap_inbox", arguments={
+        #     "count_to_scrape": 10,
+        #     "inbox_filter": "unread"
+        # })
+        # print(f"[scrap_inbox]: {result}")
 
 if __name__ == "__main__":
     asyncio.run(main()) 
