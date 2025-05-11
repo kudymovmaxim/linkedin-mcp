@@ -57,10 +57,10 @@ async with MCPServerStdio(
     params={
         "command": "python",
         "args": [
-            "/Users/kudymov/work/linkedin-mcp/mcp_server/linkedin-server.py"
+            "{pathtoproject}/linkedin-mcp/mcp_server/linkedin-server.py"
         ],
         "env": {
-            "PYTHONPATH": "/Users/kudymov/work/linkedin-mcp",
+            "PYTHONPATH": "{pathtoproject}/linkedin-mcp",
             "PHANTOMBUSTER_API_KEY": phantombuster_api_key or "",
             "LINKEDIN_COOKIE_LI": linkedin_cookie_li or "",
             "LINKEDIN_BROWSER_AGENT": linkedin_browser_agent or ""
