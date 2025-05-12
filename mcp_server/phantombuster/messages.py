@@ -1,3 +1,4 @@
+import json
 from typing import List, Optional, Tuple
 from mcp_server.phantombuster.base import PhantomAgentBase, PhantomCredentials
 from mcp_server.phantombuster.models import Thread, Message
@@ -32,11 +33,11 @@ class PhantomAgentInbox(PhantomAgentBase):
 
     def get_data(self) -> List[Thread]:
         """Get processed threads from phantom task"""
-        result = self.get_raw_data().get("resultObject")
-        # result = THREADS_TEST
+        result = self.get_raw_data()
+        result_obj = json.loads(result.get("resultObject"))
         threads = []
-        if result:
-            for value in result:
+        if result_obj:
+            for value in result_obj:
                 thread_link = value.get('threadUrl')
                 linkedInUrls = value.get('linkedInUrls', [])
                 if thread_link and linkedInUrls:
@@ -89,12 +90,13 @@ class PhantomAgentThread(PhantomAgentBase):
 
     def get_data(self) -> List[Message]:
         """Get processed messages from phantom task"""
-        result = self.get_raw_data().get("resultObject")
+        result = self.get_raw_data()
         # result = MESSAGES_TEST
         messages = []
         seen = set()
-        if result:
-            for value in result:
+        result_obj = json.loads(result.get("resultObject"))
+        if result_obj:
+            for value in result_obj:
                 thread_messages = value.get("messages", [])
                 for msg in thread_messages:
                     key = (msg.get('date'), msg.get('author'), msg.get('message'))

@@ -1,3 +1,4 @@
+import json
 from typing import List, Optional
 from mcp_server.phantombuster.base import PhantomAgentBase, PhantomCredentials
 from mcp_server.phantombuster.models import Connection
@@ -36,7 +37,8 @@ class PhantomAgentConnections(PhantomAgentBase):
 
     def get_data(self) -> List[Connection]:
         """Get processed connections from phantom task"""
-        result = self.get_raw_data().get("resultObject")
+        result = self.get_raw_data()
+        result_obj = json.loads(result.get("resultObject"))
         connections = []
         if result:
             for value in result:

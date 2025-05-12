@@ -1,3 +1,4 @@
+import json
 from typing import List, Optional, Union
 from mcp_server.phantombuster.base import PhantomAgentBase, PhantomCredentials
 from mcp_server.phantombuster.models import Company
@@ -38,9 +39,11 @@ class PhantomAgentCompany(PhantomAgentBase):
         Returns:
             Company object if found, None otherwise
         """
-        result = self.get_raw_data().get("resultObject")
-        if result:
-            for value in result:
+
+        result = self.get_raw_data()
+        result_obj = json.loads(result.get("resultObject"))
+        if result_obj:
+            for value in result_obj:
                 if query is not None:
                     if query != value.get("query"):
                         continue

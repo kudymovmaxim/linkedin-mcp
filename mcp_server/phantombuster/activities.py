@@ -1,3 +1,4 @@
+import json
 from typing import List, Optional
 from datetime import datetime, timedelta
 from mcp_server.phantombuster.base import PhantomAgentBase, PhantomCredentials
@@ -49,10 +50,11 @@ class PhantomAgentActivities(PhantomAgentBase):
     def get_data(self) -> List[Activity]:
         """Get processed activities from phantom task"""
         
-        result = self.get_raw_data().get("resultObject")
+        result = self.get_raw_data()
+        result_obj = json.loads(result.get("resultObject"))
         activities = []
-        if result:
-            for value in result:
+        if result_obj:
+            for value in result_obj:
                 activity = Activity(
                     url=value.get('postUrl', ""),
                     attached_url=value.get('imgUrl'),

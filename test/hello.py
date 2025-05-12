@@ -40,14 +40,14 @@ async def main():
         for tool in tools:
             print(f"- {tool.name}: {tool.description}")
 
-        result = await server.call_tool("scrap_profile", {"linkedin": "https://www.linkedin.com/in/maxim-kudymov/"})
-        print(f"ping -> {result}")
+        # result = await server.call_tool("scrap_profile", {"linkedin": "https://www.linkedin.com/in/maxim-kudymov/"})
+        # print(f"ping -> {result}")
 
-        # result = await server.call_tool(tool_name="scrap_inbox", arguments={
-        #     "count_to_scrape": 10,
-        #     "inbox_filter": "unread"
-        # })
-        # print(f"[scrap_inbox]: {result}")
+        result = await server.call_tool(tool_name="scrap_inbox", arguments={
+            "count_to_scrape": 10,
+            "inbox_filter": "unread"
+        })
+        print(f"[scrap_inbox]: {result}")
 
 if __name__ == "__main__":
     asyncio.run(main()) 

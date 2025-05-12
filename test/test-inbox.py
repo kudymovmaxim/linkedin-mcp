@@ -1,8 +1,7 @@
 import os
 from dotenv import load_dotenv
 
-from mcp_server.phantombuster.profile import PhantomCredentials
-from mcp_server.phantombuster.messages import PhantomAgentMessageSender
+from mcp_server.phantombuster.messages import PhantomCredentials, PhantomAgentInbox
 
 
 
@@ -18,10 +17,7 @@ credentials = PhantomCredentials(
     user_agent=LINKEDIN_BROWSER_AGENT
 )
 
-linkedin = "<linkedin>"
-message = "HI, Max"
-
-sender_agent = PhantomAgentMessageSender(credentials=credentials)
-status, success = sender_agent.run_and_get_data(linkedin, message)
-if success:
-    print(f"[run_and_get_data]: {status}")
+inbox_agent = PhantomAgentInbox(credentials=credentials)
+threads, success = inbox_agent.run_and_get_data()
+if threads:
+    print(f"[scrap_inbox]: {threads}")

@@ -1,3 +1,4 @@
+import json
 from typing import List, Optional
 from mcp_server.phantombuster.base import PhantomAgentBase, PhantomCredentials
 from mcp_server.phantombuster.models import Profile, Job
@@ -43,9 +44,10 @@ class PhantomAgentProfile(PhantomAgentBase):
         Returns:
             Profile object if data is found and matches filter criteria, None otherwise
         """
-        result = self.get_raw_data().get("resultObject")
-        if result:
-            for value in result:
+        result = self.get_raw_data()
+        result_obj = json.loads(result.get("resultObject"))
+        if result_obj:
+            for value in result_obj:
                 # Apply filtering if specified
                 if filter_field is not None and filter_value is not None:
                     field_value = value.get(filter_field)
@@ -136,10 +138,11 @@ class PhantomAgentSalesNavigatorProfile(PhantomAgentBase):
 
     def get_data(self) -> List[Profile]:
         """Get processed profiles from phantom task"""
-        result = self.get_raw_data().get("resultObject")
         profiles = []
-        if result:
-            for value in result:
+        result = self.get_raw_data()
+        result_obj = json.loads(result.get("resultObject"))
+        if result_obj:
+            for value in result_obj:
                 if value.get('defaultProfileUrl'):
                     profile = Profile(
                         linkedin_url=value.get('defaultProfileUrl', ""),
