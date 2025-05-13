@@ -33,10 +33,10 @@ class PhantomAgentInbox(PhantomAgentBase):
 
     def get_data(self) -> List[Thread]:
         """Get processed threads from phantom task"""
-        result = self.get_raw_data()
-        result_obj = json.loads(result.get("resultObject"))
         threads = []
-        if result_obj:
+        raw_data = self.get_raw_data()
+        if raw_data:
+            result_obj = json.loads(raw_data.get("resultObject"))
             for value in result_obj:
                 thread_link = value.get('threadUrl')
                 linkedInUrls = value.get('linkedInUrls', [])

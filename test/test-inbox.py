@@ -18,6 +18,8 @@ credentials = PhantomCredentials(
 )
 
 inbox_agent = PhantomAgentInbox(credentials=credentials)
-threads, success = inbox_agent.run_and_get_data()
+threads, success = inbox_agent.run_and_get_data(inbox_filter="unread")
 if threads:
-    print(f"[scrap_inbox]: {threads}")
+    print(f"[scrap_inbox]:")
+    for thread in threads:
+        print(f"{thread.last_message_author_name}: {thread.last_message}")
