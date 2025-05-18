@@ -173,7 +173,7 @@ def send_message(linkedin: str, message: str, message_control: str = "none") -> 
 def scrap_activities(
      linkedin: str, 
      max_activities: int = 10, 
-     activities_to_scrape: list = ["Posts", "Article"],
+     activities_to_scrape: List[str] = ["Posts", "Article"],
      date_after: int = 30
      ) -> list[Activity]:
 
@@ -183,7 +183,7 @@ def scrap_activities(
     Args:
         linkedin: URL of the LinkedIn profile or company.
         max_activities: Maximum number of activities to scrape (default: 10).
-        activities_to_scrape: List of activity types to scrape. Possible values:
+        activities_to_scrape: List of activity types to scrape (default: ["Posts", "Article"]). Possible values:
             - "Posts"
             - "Article"
             - "Comments"
