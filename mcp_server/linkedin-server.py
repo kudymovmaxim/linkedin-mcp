@@ -33,7 +33,7 @@ def scrap_profile(linkedin: str) -> Optional[Profile]:
     """
 
     if not (PHANTOMBUSTER_API_KEY and LINKEDIN_COOKIE_LI and LINKEDIN_BROWSER_AGENT):
-        return {"error": True, "message": "PHANTOMBUSTER_API_KEY, LINKEDIN_COOKIE_LI или LINKEDIN_BROWSER_AGENT не заданы в переменных окружения"}
+        return {"error": True, "message": "PHANTOMBUSTER_API_KEY, LINKEDIN_COOKIE_LI or LINKEDIN_BROWSER_AGENT are not set in environment variables"}
 
     credentials = PhantomCredentials(
         phantombuster_key=PHANTOMBUSTER_API_KEY,
@@ -60,7 +60,7 @@ def scrap_company(linkedin: str) -> Optional[Company]:
     """
 
     if not (PHANTOMBUSTER_API_KEY and LINKEDIN_COOKIE_LI and LINKEDIN_BROWSER_AGENT):
-        return {"error": True, "message": "PHANTOMBUSTER_API_KEY, LINKEDIN_COOKIE_LI или LINKEDIN_BROWSER_AGENT не заданы в переменных окружения"}
+        return {"error": True, "message": "PHANTOMBUSTER_API_KEY, LINKEDIN_COOKIE_LI or LINKEDIN_BROWSER_AGENT are not set in environment variables"}
 
     credentials = PhantomCredentials(
         phantombuster_key=PHANTOMBUSTER_API_KEY,
@@ -89,7 +89,7 @@ def scrap_inbox(count_to_scrape: int = 10, inbox_filter: str = "all") -> List[Th
     """
 
     if not (PHANTOMBUSTER_API_KEY and LINKEDIN_COOKIE_LI and LINKEDIN_BROWSER_AGENT):
-        return {"error": True, "message": "PHANTOMBUSTER_API_KEY, LINKEDIN_COOKIE_LI или LINKEDIN_BROWSER_AGENT не заданы в переменных окружения"}
+        return {"error": True, "message": "PHANTOMBUSTER_API_KEY, LINKEDIN_COOKIE_LI or LINKEDIN_BROWSER_AGENT are not set in environment variables"}
 
     credentials = PhantomCredentials(
         phantombuster_key=PHANTOMBUSTER_API_KEY,
@@ -118,7 +118,7 @@ def scrap_thread(thread_link: str) -> List[Message]:
     """
 
     if not (PHANTOMBUSTER_API_KEY and LINKEDIN_COOKIE_LI and LINKEDIN_BROWSER_AGENT):
-        return {"error": True, "message": "PHANTOMBUSTER_API_KEY, LINKEDIN_COOKIE_LI или LINKEDIN_BROWSER_AGENT не заданы в переменных окружения"}
+        return {"error": True, "message": "PHANTOMBUSTER_API_KEY, LINKEDIN_COOKIE_LI or LINKEDIN_BROWSER_AGENT are not set in environment variables"}
 
     credentials = PhantomCredentials(
         phantombuster_key=PHANTOMBUSTER_API_KEY,
@@ -155,7 +155,7 @@ def send_message(linkedin: str, message: str, message_control: str = "none") -> 
         True if the message was sent, False otherwise. Or an error dict if something went wrong
     """
     if not (PHANTOMBUSTER_API_KEY and LINKEDIN_COOKIE_LI and LINKEDIN_BROWSER_AGENT):
-        return {"error": True, "message": "PHANTOMBUSTER_API_KEY, LINKEDIN_COOKIE_LI или LINKEDIN_BROWSER_AGENT не заданы в переменных окружения"}
+        return {"error": True, "message": "PHANTOMBUSTER_API_KEY, LINKEDIN_COOKIE_LI or LINKEDIN_BROWSER_AGENT are not set in environment variables"}
 
     credentials = PhantomCredentials(
         phantombuster_key=PHANTOMBUSTER_API_KEY,
@@ -197,7 +197,7 @@ def scrap_activities(
         List of Activity objects with scraped data, or an error if data could not be retrieved.
     """
     if not (PHANTOMBUSTER_API_KEY and LINKEDIN_COOKIE_LI and LINKEDIN_BROWSER_AGENT):
-        return {"error": True, "message": "PHANTOMBUSTER_API_KEY, LINKEDIN_COOKIE_LI или LINKEDIN_BROWSER_AGENT не заданы в переменных окружения"}
+        return {"error": True, "message": "PHANTOMBUSTER_API_KEY, LINKEDIN_COOKIE_LI or LINKEDIN_BROWSER_AGENT are not set in environment variables"}
 
     credentials = PhantomCredentials(
         phantombuster_key=PHANTOMBUSTER_API_KEY,
