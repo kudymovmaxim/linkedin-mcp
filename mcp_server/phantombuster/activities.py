@@ -50,23 +50,26 @@ class PhantomAgentActivities(PhantomAgentBase):
     def get_data(self) -> List[Activity]:
         """Get processed activities from phantom task"""
         
-        result = self.get_raw_data()
-        result_obj = json.loads(result.get("resultObject"))
         activities = []
-        if result_obj:
-            for value in result_obj:
-                activity = Activity(
-                    url=value.get('postUrl', ""),
-                    attached_url=value.get('imgUrl'),
-                    type=value.get('type', ""),
-                    text=value.get('postContent'),
-                    like_count=value.get('likeCount'),
-                    comment_count=value.get('commentCount'),
-                    repost_count=value.get('repostCount'),
-                    date=value.get('postDate'),
-                    profile_url=value.get('profileUrl'),
-                    timestamp=value.get('timestamp'),
-                    comment=value.get('commentContent')
-                )
-                activities.append(activity)
+        raw_data = self.get_raw_data()
+        if raw_data:
+            result_obj = raw_data.get("resultObject")
+            if result_obj:
+                for value in json.loads(result_obj):
+                    activity = Activity(
+                        url=value.get('postUrl', ""),
+                        attached_url=value.get('imgUrl'),
+                        type=value.get('type', ""),
+                        text=value.get('postContent'),
+                        like_count=value.get('likeCount'),
+                        comment_count=value.get('commentCount'),
+                        repost_count=value.get('repostCount'),
+                        date=value.get('postDate'),
+                        profile_url=value.get('profileUrl'),
+                        timestamp=value.get('timestamp'),
+                        comment=value.get('commentContent')
+                    )
+                    activities.append(activity)
         return activities 
+    
+    

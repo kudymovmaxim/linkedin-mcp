@@ -173,7 +173,7 @@ def send_message(linkedin: str, message: str, message_control: str = "none") -> 
 def scrap_activities(
      linkedin: str, 
      max_activities: int = 10, 
-     activities_to_scrape: List[str] = ["Posts", "Article"],
+     activities_to_scrape: List[str] = ["Post", "Article"],
      date_after: int = 30
      ) -> list[Activity]:
 
@@ -183,14 +183,14 @@ def scrap_activities(
     Args:
         linkedin: URL of the LinkedIn profile or company.
         max_activities: Maximum number of activities to scrape (default: 10).
-        activities_to_scrape: List of activity types to scrape (default: ["Posts", "Article"]). Possible values:
-            - "Posts"
+        activities_to_scrape: List of activity types to scrape (default: ["Post", "Article"]). Possible values:
+            - "Post"
             - "Article"
-            - "Comments"
-            - "Reactions"
-            - "Documents"
-            - "Newsletters"
-            - "Events"
+            - "Comment"
+            - "Reaction"
+            - "Document"
+            - "Newsletter"
+            - "Event"
         date_after: Number of days from today to scrape activities for (default: 30).
 
     Returns:
@@ -205,15 +205,15 @@ def scrap_activities(
         user_agent=LINKEDIN_BROWSER_AGENT
     )
 
-    sender_agent = PhantomAgentActivities(
+    scrap_agent = PhantomAgentActivities(
          credentials=credentials,
          nb_max_posts=max_activities,
          activities_to_scrape=activities_to_scrape,
          date_after=date_after
     )
-    status, success = sender_agent.run_and_get_data(linkedin)
+    activities, success = scrap_agent.run_and_get_data(linkedin)
 
-    return success
+    return activities
     
 # Run the MCP server locally
 if __name__ == '__main__':

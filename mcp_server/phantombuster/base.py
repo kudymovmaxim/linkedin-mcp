@@ -180,10 +180,10 @@ class PhantomAgentBase:
                 if self.run(*args, **kwargs):
                     if self.wait_until_finished():
                         data = self.get_data()
-                        self.delete()
                         success = True
         finally:
             # Always try to delete the agent, even if something failed
+            success = False
             if self.agent_id:
                 self.delete()
                 
