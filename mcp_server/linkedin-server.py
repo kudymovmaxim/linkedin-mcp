@@ -8,6 +8,7 @@ from typing import List, Optional
 from mcp_server.phantombuster.profile import PhantomAgentProfile, Profile, PhantomCredentials
 from mcp_server.phantombuster.company import PhantomAgentCompany, Company
 from mcp_server.phantombuster.messages import PhantomAgentInbox, PhantomAgentThread, PhantomAgentMessageSender, Thread, Message
+from mcp_server.phantombuster.activities import PhantomAgentActivities, Activity
 
 
 load_dotenv()
@@ -164,6 +165,53 @@ def send_message(linkedin: str, message: str, message_control: str = "none") -> 
 
     sender_agent = PhantomAgentMessageSender(credentials=credentials)
     status, success = sender_agent.run_and_get_data(linkedin, message, message_control)
+
+    return success
+
+
+@mcp.tool()
+def scrap_activities(
+     linkedin: str, 
+     max_activities: int = 10, 
+     activities_to_scrape: list = ["Posts", "Article"],
+     date_after: int = 30
+     ) -> list[Activity]:
+
+    """
+    Scrapes activities for a LinkedIn profile or company.
+
+    Args:
+        linkedin: URL of the LinkedIn profile or company.
+        max_activities: Maximum number of activities to scrape (default: 10).
+        activities_to_scrape: List of activity types to scrape. Possible values:
+            - "Posts"
+            - "Article"
+            - "Comments"
+            - "Reactions"
+            - "Documents"
+            - "Newsletters"
+            - "Events"
+        date_after: Number of days from today to scrape activities for (default: 30).
+
+    Returns:
+        List of Activity objects with scraped data, or an error if data could not be retrieved.
+    """
+    if not (PHANTOMBUSTER_API_KEY and LINKEDIN_COOKIE_LI and LINKEDIN_BROWSER_AGENT):
+        return {"error": True, "message": "PHANTOMBUSTER_API_KEY, LINKEDIN_COOKIE_LI или LINKEDIN_BROWSER_AGENT не заданы в переменных окружения"}
+
+    credentials = PhantomCredentials(
+        phantombuster_key=PHANTOMBUSTER_API_KEY,
+        session_cookie=LINKEDIN_COOKIE_LI,
+        user_agent=LINKEDIN_BROWSER_AGENT
+    )
+
+    sender_agent = PhantomAgentActivities(
+         credentials=credentials,
+         nb_max_posts=max_activities,
+         activities_to_scrape=activities_to_scrape,
+         date_after=date_after
+    )
+    status, success = sender_agent.run_and_get_data(linkedin)
 
     return success
     
