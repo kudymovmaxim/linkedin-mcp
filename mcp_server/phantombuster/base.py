@@ -183,7 +183,6 @@ class PhantomAgentBase:
                         success = True
         finally:
             # Always try to delete the agent, even if something failed
-            success = False
             if self.agent_id:
                 self.delete()
                 
