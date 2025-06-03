@@ -37,18 +37,23 @@ class PhantomAgentConnections(PhantomAgentBase):
 
     def get_data(self) -> List[Connection]:
         """Get processed connections from phantom task"""
-        result = self.get_raw_data()
-        result_obj = json.loads(result.get("resultObject"))
         connections = []
-        if result:
-            for value in result:
-                connection = Connection(
-                    linkedin_url=value.get('profileUrl', ""),
-                    first_name=value.get('firstName', ""),
-                    last_name=value.get('lastName', ""),
-                    full_name=value.get('fullName', ""),
-                    job_title=value.get('title'),
-                    date_connected=value.get('connectionSince')
-                )
-                connections.append(connection)
+        raw_data = self.get_raw_data()
+        if not raw_data:
+            return connections 
+        
+        result_obj = json.loads(raw_data.get("resultObject"))
+        if not result_obj:
+            return connections 
+        
+        for value in result_obj:
+            connection = Connection(
+                linkedin_url=value.get('profileUrl', ""),
+                first_name=value.get('firstName', ""),
+                last_name=value.get('lastName', ""),
+                full_name=value.get('fullName', ""),
+                job_title=value.get('title'),
+                date_connected=value.get('connectionSince')
+            )
+            connections.append(connection)
         return connections 

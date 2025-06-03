@@ -54,9 +54,9 @@ class Profile(MarkdownModel):
 
 class Activity(MarkdownModel):
     """LinkedIn activity/post model"""
-    url: str
+    url: Optional[str] = None
     attached_url: Optional[str] = None
-    type: str
+    type: Optional[str] = None
     text: Optional[str] = None
     like_count: Optional[int] = None
     comment_count: Optional[int] = None
